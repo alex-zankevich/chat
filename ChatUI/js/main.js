@@ -12,4 +12,14 @@ $(document).ready(function () {
             addMessage();
         }
     });
+    $(document).on('click','.msg-data',function(){     
+        if($(this).hasClass('selected')){
+            $(this).removeClass('selected');
+        }else{
+            $(this).addClass('selected');
+        }
+    });
+    $('.delete').click(function(){
+        $('.selected').remove();
+    });
 });

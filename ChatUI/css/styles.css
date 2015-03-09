@@ -19,7 +19,6 @@ html,body{
 .msg-data{
     max-width: 100%;
     word-wrap: break-word;
-    color: ;
     font: 15px cursive ;
 }
 .chat-name,.chat-messages,.chat textarea{
@@ -48,4 +47,11 @@ html,body{
 }
 .submit{
     float:right;
+}
+.delete{
+    float: right;
+}
+.selected{
+    background-color: #aaa;
+    color: #eee;
 }
