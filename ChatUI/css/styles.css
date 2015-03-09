@@ -20,6 +20,7 @@ html,body{
     max-width: 100%;
     word-wrap: break-word;
     font: 15px cursive ;
+    color:#717171;
 }
 .chat-name,.chat-messages,.chat textarea{
     box-sizing: border-box;
@@ -40,6 +41,7 @@ html,body{
     width:100%;
     padding: 5px;
     border-top: 0;
+    color: #717171;
     max-width: 100%;
 }
 .status{
