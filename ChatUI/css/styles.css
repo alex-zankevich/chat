@@ -9,17 +9,24 @@ html,body{
 }
 .container{
     padding: 10%;
+    position: relative;
 }
 .chat{ 
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     padding: 20px;
     margin: auto;
-    max-width:400px;
-    max-height:600px;
+    width:400px;
+    height:400px;
 }
 .msg-data{
     max-width: 100%;
     word-wrap: break-word;
-    font: 15px cursive ;
+    font: 15px cursive;
+    padding: 5px;
     color:#717171;
 }
 .chat-name,.chat-messages,.chat textarea{
@@ -47,13 +54,16 @@ html,body{
 .status{
     color: #bbb;
 }
-.submit{
+#submit{
     float:right;
 }
-.delete{
+#delete{
     float: right;
 }
 .selected{
     background-color: #aaa;
     color: #eee;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
 }
