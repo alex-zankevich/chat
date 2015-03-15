@@ -38,11 +38,14 @@ html,body{
     height: 300px;
     overflow-y: scroll;
     padding: 5px;
+    -webkit-user-select:none;
+    -o-user-select:none;
+    -moz-user-select:none;
 }
 .chat-name{
     width:100%;
-    padding: 5px;
-    border-bottom: 0;
+    padding:5px;
+    border-bottom:0;
 }
 .chat textarea{
     width:100%;

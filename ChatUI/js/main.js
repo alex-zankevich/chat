@@ -5,7 +5,7 @@ $(document).ready(function () {
     var showHistory = function(){
         var histStr = localStorage.getItem('chatHistory');
         var histObj = JSON.parse(histStr);
-        if(histObj.length != 0){
+        if(histObj != null){
             for(var i = 0; i < histObj.length; i++){
                 $('<div></div>').addClass("msg-data").attr('msg-id',histObj[i].id).text(histObj[i].name + " : " + histObj[i].message).appendTo(history);
                 historyList.push({
@@ -76,5 +76,25 @@ $(document).ready(function () {
         });
         localStorage.setItem('chatHistory',JSON.stringify(historyList));
     });
-    
+    ////************Editing****************/
+    $(document).on('dblclick','.msg-data',function(){     
+        var tmp = $(this);
+        var current;
+        
+        for(var i = 0; i < historyList.length; i++){
+                if(historyList[i].id == $(this).attr('msg-id')){
+                    var current = i;
+                    str = historyList[i].message;
+                    break;
+                }                
+            }
+        $('textarea[name="msg-area"]').text(str);
+        $('#submit').click(function(){
+            var newMsg = $('textarea[name="msg-area"]').val();
+            tmp.text(historyList[current].name + " : " + newMsg);
+            historyList[current].message = newMsg;
+            localStorage.setItem('chatHistory',JSON.stringify(historyList));
+        });
+        
+    });
 });
