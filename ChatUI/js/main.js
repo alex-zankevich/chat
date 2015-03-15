@@ -77,24 +77,22 @@ $(document).ready(function () {
         localStorage.setItem('chatHistory',JSON.stringify(historyList));
     });
     ////************Editing****************/
-    $(document).on('dblclick','.msg-data',function(){     
+    /*$(document).on('dblclick','.msg-data',function(){     
         var tmp = $(this);
-        var current;
-        
+        var str;
         for(var i = 0; i < historyList.length; i++){
-                if(historyList[i].id == $(this).attr('msg-id')){
-                    var current = i;
-                    str = historyList[i].message;
-                    break;
-                }                
-            }
-        $('textarea[name="msg-area"]').text(str);
-        $('#submit').click(function(){
+            if(historyList[i].id == $(this).attr('msg-id')){
+                str = historyList[i].message;
+                break;
+            }                
+        }
+        $('textarea[name="msg-area"]').val(str);
+        $('#edit').click(function(){
             var newMsg = $('textarea[name="msg-area"]').val();
-            tmp.text(historyList[current].name + " : " + newMsg);
-            historyList[current].message = newMsg;
+            tmp.text(historyList[i].name + " : " + newMsg);
+            historyList[i].message = newMsg;
+            $('textarea[name="msg-area"]').val('');
             localStorage.setItem('chatHistory',JSON.stringify(historyList));
         });
-        
-    });
+    });*/
 });
