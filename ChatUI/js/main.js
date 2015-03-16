@@ -7,7 +7,7 @@ $(document).ready(function () {
         var histObj = JSON.parse(histStr);
         if(histObj != null){
             for(var i = 0; i < histObj.length; i++){
-                $('<div></div>').addClass("msg-data").attr('msg-id',histObj[i].id).text(histObj[i].name + " : " + histObj[i].message).appendTo(history);
+                $('<div></div>').addClass("msg-data").attr('msg-id',histObj[i].id).text(histObj[i].name + " : " + histObj[i].message).prependTo(history);
                 historyList.push({
                     name:histObj[i].name,
                     message:histObj[i].message,
@@ -17,14 +17,14 @@ $(document).ready(function () {
         }
     }
     showHistory();
-    /************************/
+    /*Generate ID*/
     var uniqueId = function() {
         var date = Date.now();
         var random = Math.random() * Math.random();
 
         return Math.floor(date * random).toString();
     };  
-    
+    /*Create msgObject*/
     var createMsg = function(name_, msg_){
         return {
             name:name_,
@@ -33,7 +33,7 @@ $(document).ready(function () {
         }
     }
     
-    /*****************************/
+    /*Adding message*/
     var addMessage = function () {
         var msg = $('textarea[name="msg-area"]').val();
         var name = $('.chat-name').val();
@@ -42,17 +42,15 @@ $(document).ready(function () {
         }
         $('textarea[name="msg-area"]').val('');
         
-        
-        
         var data = createMsg(name,msg);
         historyList.push(data);
         
-        $('<div></div>').addClass("msg-data").attr('msg-id',data.id).text(name + " : " + msg).appendTo(history);
+        $('<div></div>').addClass("msg-data").attr('msg-id',data.id).text(name + " : " + msg).prependTo(history);
         
         /*Write to LS*/
         localStorage.setItem('chatHistory',JSON.stringify(historyList));
     } 
-    /***********************/
+    /*Add events**/
     $('#submit').click(addMessage);
     $('textarea[name="msg-area"]').keypress(function(e){
         if(e.which == 13){
@@ -60,7 +58,7 @@ $(document).ready(function () {
             addMessage();
         }
     });
-    /********************************/
+    /*Deleting*/
     $(document).on('click','.msg-data',function(){     
         $(this).toggleClass('selected');
     });
@@ -76,23 +74,27 @@ $(document).ready(function () {
         });
         localStorage.setItem('chatHistory',JSON.stringify(historyList));
     });
-    ////************Editing****************/
-    /*$(document).on('dblclick','.msg-data',function(){     
-        var tmp = $(this);
-        var str;
-        for(var i = 0; i < historyList.length; i++){
-            if(historyList[i].id == $(this).attr('msg-id')){
-                str = historyList[i].message;
+    /*Editing*/
+    function msgDblClicked() {
+        var msgID = $(this).attr('msg-id');
+        var pos = 0;
+        for(pos = 0; pos < historyList.length; pos++){
+            if(historyList[pos].id == msgID)
                 break;
-            }                
         }
-        $('textarea[name="msg-area"]').val(str);
-        $('#edit').click(function(){
-            var newMsg = $('textarea[name="msg-area"]').val();
-            tmp.text(historyList[i].name + " : " + newMsg);
-            historyList[i].message = newMsg;
-            $('textarea[name="msg-area"]').val('');
+        var editableText = $("<textarea />");
+        editableText.val(historyList[pos].message);
+        $(this).replaceWith(editableText);
+        editableText.focus();
+        editableText.blur(function(){
+            var str = $(this).val();
+            historyList[pos].message = str;
+            var viewableText = $("<div class='msg-data' msg-id='" + msgID + "'></div>");
+            viewableText.html(historyList[pos].name + " : " + str);
+            $(this).replaceWith(viewableText);
             localStorage.setItem('chatHistory',JSON.stringify(historyList));
+            $(document).on('dblclick',viewableText,msgDblClicked);
         });
-    });*/
+    }
+    $(document).on('dblclick','.msg-data',msgDblClicked);
 });
