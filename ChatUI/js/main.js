@@ -19,7 +19,8 @@ $(document).ready(function () {
 	}
 	showHistory();
 	/*Connecting and refreshing*/
-	var updateHistory = function(list){
+	var updateHistory = function(listString){
+		var list = JSON.parse(listString).messages.slice(0,5);
 		for(var i = 0; i < list.length; i++){
 			$('.msg-data').first().remove();
 			historyList.pop();
@@ -29,13 +30,12 @@ $(document).ready(function () {
 			historyList.push(list[i]);
 		}
 	}
-	setInterval(function(){
+	/*setInterval(function(){
 		$.get("http://localhost:999/chat",function(data){
 			var newHist = JSON.parse(data).messages.slice(0,5);
 			updateHistory(newHist);
 		});
-	},1000);
-	
+	},1000);*/
 	/*Generate ID*/
 	var uniqueId = function() {
 		var date = Date.now();
