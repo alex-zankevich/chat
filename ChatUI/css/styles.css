@@ -57,7 +57,6 @@ textarea{
 .chat > textarea{
     border-top: 0;
     max-width: 100%;
-    resize: none;
 }
 .status{
     color: #bbb;

@@ -1,0 +1,1 @@
+start java -cp "./json-simple-1.1.1.jar;./json-lib-2.4-jdk15.jar;" NewServer 999
