@@ -13,14 +13,23 @@ $(document).ready(function () {
 					message:histObj[i].message,
 					id:histObj[i].id
 				});
-
+				$.ajax({
+					type:"POST",
+					url:"http://localhost:999/chat",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						name:histObj[i].name,
+						message:histObj[i].message,
+						id:histObj[i].id
+					})
+				});
 			}
 		}
 	}
 	showHistory();
 	/*Connecting and refreshing*/
 	var updateHistory = function(listString){
-		var list = JSON.parse(listString).messages.slice(0,5);
+		var list = JSON.parse(listString).messages;
 		for(var i = 0; i < list.length; i++){
 			$('.msg-data').first().remove();
 			historyList.pop();
